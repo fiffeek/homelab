@@ -1,0 +1,9 @@
+packages:
+  - unzip
+  - wget
+  - curl
+  - git
+  - speedtest-cli
+  - htop
+  - tmux
+  - vim

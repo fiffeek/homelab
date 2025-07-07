@@ -1,0 +1,18 @@
+---
+- name: Add current user to the sudo group
+  become: true
+  ansible.builtin.user:
+    name: {{ remote_username }}
+    groups: sudo
+    append: true
+
+- name: Allow passwordless sudo for a user
+  become: true
+  lineinfile:
+    path: /etc/sudoers.d/{{ remote_username }}
+    create: yes
+    mode: '0440'
+    owner: root
+    group: root
+    line: '{{ remote_username }} ALL=(ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
