@@ -2,7 +2,7 @@
 - name: Add current user to the sudo group
   become: true
   ansible.builtin.user:
-    name: {{ remote_username }}
+    name: "{{ remote_username }}"
     groups: sudo
     append: true
 
