@@ -1,0 +1,15 @@
+---
+- name: Ensure PasswordAuthentication is set to no
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication\s+'
+    line: 'PasswordAuthentication no'
+    state: present
+    backup: yes
+
+- name: Restart SSH service
+  become: true
+  service:
+    name: ssh
+    state: restarted
