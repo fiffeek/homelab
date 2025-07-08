@@ -5,8 +5,4 @@
     - role: system
     - role: essentials
     - role: hardening
-
-- name: Install docker
-  hosts: workers
-  roles:
     - role: docker
