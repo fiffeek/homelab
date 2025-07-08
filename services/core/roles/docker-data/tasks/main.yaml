@@ -27,7 +27,8 @@
     state: directory
     mode: '0777'
   loop: "{{ toplevel_directories }}"
-- name: Set toplevel directories ownership to fmikina:fmikina
+- name: |
+    Set toplevel directories ownership to {{ remote_user }}:{{ remote_user }}
   become: true
   file:
     path: "{{ home_data_mount }}/{{ item }}"

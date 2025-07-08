@@ -3,7 +3,7 @@
   hosts: all
   roles:
     - role: docker-data
-- name: Deploy networking services
-  hosts: networking
+- name: Deploy services
+  hosts: all
   roles:
-    - role: wireguard
+    - role: docker-stacks

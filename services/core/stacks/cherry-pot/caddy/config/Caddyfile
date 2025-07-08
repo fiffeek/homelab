@@ -1,0 +1,4 @@
+vpn.filipmikina.com {
+        reverse_proxy wg-easy:51821
+        tls internal
+}

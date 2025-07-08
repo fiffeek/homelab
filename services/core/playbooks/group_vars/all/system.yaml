@@ -4,3 +4,6 @@ storage_mount: "/mnt/storage"
 home_data_mount: "/home/{{ ansible_user_id }}/storage"
 toplevel_directories:
   - docker-data
+stacks:
+  dest: "/home/{{ ansible_user_id }}/storage/docker-data/core-apps"
+  order: []

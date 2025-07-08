@@ -1,0 +1,29 @@
+---
+- name: Create dirs
+  become: true
+  file:
+    path: "{{ stacks.dest }}/{{ item.dir }}"
+    state: directory
+    mode: '0777'
+  loop: "{{ stacks.order }}"
+- name: Set directories ownership to {{ remote_user }}:{{ remote_user }}
+  become: true
+  file:
+    path: "{{ stacks.dest }}/{{ item.dir }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+  loop: "{{ stacks.order }}"
+- name: Copy stacks to VPS
+  tags:
+    - deploy
+  copy:
+    src: "{{ playbook_dir }}/../stacks/{{ ansible_host }}/"
+    dest: "{{ stacks.dest }}"
+    decrypt: true
+- name: Start services
+  tags:
+    - deploy
+  shell:
+    cmd: "docker compose -f docker-compose.yaml up --build -d --force-recreate"
+    chdir: "{{ stacks.dest }}/{{ item.dir }}"
+  loop: "{{ stacks.order }}"
