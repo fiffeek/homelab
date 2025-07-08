@@ -2,3 +2,8 @@ vpn.filipmikina.com {
         reverse_proxy wg-easy:51821
         tls internal
 }
+
+pihole.vpn.filipmikina.com {
+        reverse_proxy pihole.vpn.filipmikina.com:8080
+        tls internal
+}
