@@ -4,6 +4,8 @@ services:
     image: ghcr.io/wg-easy/wg-easy:15
     container_name: wg-easy
     environment:
+      # Static IP address of the internal pihole with 53
+      # port exposed
       - WG_DEFAULT_DNS=192.168.1.24
     networks:
       wg:

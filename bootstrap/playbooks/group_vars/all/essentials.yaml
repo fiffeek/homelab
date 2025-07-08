@@ -8,3 +8,4 @@ packages:
   - htop
   - tmux
   - vim
+  - dhcpcd
