@@ -6,8 +6,9 @@ services:
     network_mode: host
     environment:
       TZ: 'Europe/London'
-      FTLCONF_webserver_api_password: 'correct horse battery staple'
+      FTLCONF_webserver_api_password: ''
       FTLCONF_webserver_port: '8080,8043s'
+      FTLCONF_dns_upstreams: '8.8.8.8;8.8.4.4;192.168.1.1'
     volumes:
       - './data/etc-pihole:/etc/pihole'
     cap_add:
