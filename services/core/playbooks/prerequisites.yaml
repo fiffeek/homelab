@@ -1,0 +1,9 @@
+---
+- name: Create prerequisites
+  hosts: all
+  roles:
+    - role: docker-data
+- name: Deploy networking services
+  hosts: networking
+  roles:
+    - role: wireguard

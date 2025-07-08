@@ -1,0 +1,36 @@
+---
+- name: Check if {{ storage_mount }} exists
+  stat:
+    path: "{{ storage_mount }}"
+  register: mnt_storage
+- name: Ensure {{ home_data_mount }} directory exists
+  file:
+    path: "{{ home_data_mount }}"
+    state: directory
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+    mode: '0755'
+  when: not mnt_storage.stat.exists
+- name: Mount {{ storage_mount }} to {{ home_data_mount }}
+  become: true
+  mount:
+    path: "{{ home_data_mount }}"
+    src: "{{ storage_mount }}"
+    fstype: none
+    opts: bind,rw
+    state: mounted
+  when: mnt_storage.stat.exists
+- name: Create toplevel dirs
+  become: true
+  file:
+    path: "{{ home_data_mount }}/{{ item }}"
+    state: directory
+    mode: '0777'
+  loop: "{{ toplevel_directories }}"
+- name: Set toplevel directories ownership to fmikina:fmikina
+  become: true
+  file:
+    path: "{{ home_data_mount }}/{{ item }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+  loop: "{{ toplevel_directories }}"
