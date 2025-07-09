@@ -3,7 +3,7 @@ vpn.filipmikina.com {
         tls internal
 }
 
-pihole.vpn.filipmikina.com {
+pihole.home.filipmikina.com {
         reverse_proxy pihole.vpn.filipmikina.com:8080
         tls internal
 }
