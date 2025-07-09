@@ -1,0 +1,15 @@
+---
+- name: Deploy dhcpcd.conf from template
+  ansible.builtin.template:
+    src: templates/dhcpcd.conf.j2
+    dest: /etc/dhcpcd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+- name: Restart dhcpcd service
+  become: true
+  systemd:
+    state: restarted
+    daemon_reload: true
+    name: dhcpcd

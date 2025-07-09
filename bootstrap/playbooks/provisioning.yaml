@@ -6,3 +6,7 @@
     - role: essentials
     - role: hardening
     - role: docker
+- name: Ensure network static config
+  hosts: networking
+  roles:
+    - role: dhcpcd
