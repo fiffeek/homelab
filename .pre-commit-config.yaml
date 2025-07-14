@@ -22,3 +22,7 @@ repos:
         name: Generate pip requirements
         entry: ./hooks/pip_freeze.sh
         language: system
+      - id: encrypt
+        name: Ensure secrets are encrypted
+        entry: ./hooks/encrypt.sh
+        language: system

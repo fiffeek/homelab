@@ -1,0 +1,49 @@
+---
+version: "3"
+services:
+  backend:
+    container_name: infisical-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    image: infisical/infisical:v0.137.0-postgres
+    pull_policy: always
+    env_file: ./config/infisical.env.vault
+    ports:
+      - 10080:8080
+    environment:
+      - NODE_ENV=production
+    networks:
+      - infisical
+  redis:
+    image: redis
+    container_name: infisical-redis
+    env_file: ./config/infisical.env.vault
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - infisical
+    volumes:
+      - ./data/redis:/data
+  db:
+    container_name: infisical-db
+    image: postgres:14-alpine
+    restart: always
+    env_file: ./config/infisical.env.vault
+    volumes:
+      - ./data/psql:/var/lib/postgresql/data
+    networks:
+      - infisical
+    healthcheck:
+      test: |
+        pg_isready --username=$${POSTGRES_USER} && \
+          psql --username=$${POSTGRES_USER} --list
+      interval: 5s
+      timeout: 10s
+      retries: 20
+networks:
+  infisical:

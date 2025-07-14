@@ -7,3 +7,8 @@ pihole.home.filipmikina.com {
         reverse_proxy pihole.vpn.filipmikina.com:8080
         tls internal
 }
+
+https://secrets.home.filipmikina.com {
+        reverse_proxy black-cat:10080
+        tls internal
+}
