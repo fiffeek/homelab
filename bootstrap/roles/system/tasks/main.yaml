@@ -1,3 +1,5 @@
 ---
-- include_tasks: update.yaml
-- include_tasks: sudoers.yaml
+- name: Update system
+  ansible.builtin.include_tasks: update.yaml
+- name: Update sudo perms
+  ansible.builtin.include_tasks: sudoers.yaml

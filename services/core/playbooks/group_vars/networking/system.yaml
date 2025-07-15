@@ -1,6 +1,6 @@
 ---
 stacks:
-  dest: "/home/{{ ansible_user_id }}/storage/docker-data/core-apps"
+  dest: /home/{{ ansible_user_id }}/storage/docker-data/core-apps
   order:
     - dir: caddy
     - dir: pihole

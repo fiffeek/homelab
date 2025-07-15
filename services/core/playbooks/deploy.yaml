@@ -2,8 +2,8 @@
 - name: Create prerequisites
   hosts: "{{ variable_host | default('all') }}"
   roles:
-    - role: docker-data
+    - role: docker_data
 - name: Deploy services
   hosts: "{{ variable_host | default('all') }}"
   roles:
-    - role: docker-stacks
+    - role: docker_stacks

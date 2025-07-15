@@ -4,16 +4,16 @@ services:
     container_name: caddy
     image: caddy:2.10.0-alpine
     ports:
-      - '80:80/tcp'
-      - '443:443/tcp'
-      - '443:443/udp'
+      - 80:80/tcp
+      - 443:443/tcp
+      - 443:443/udp
     networks:
       - caddy
     restart: unless-stopped
     volumes:
-      - './config/Caddyfile:/etc/caddy/Caddyfile:ro'
-      - './data/config:/config'
-      - './data/data:/data'
+      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data/config:/config
+      - ./data/data:/data
 networks:
   caddy:
     name: caddy

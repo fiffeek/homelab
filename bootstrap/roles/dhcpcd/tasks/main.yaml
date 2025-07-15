@@ -5,11 +5,11 @@
     dest: /etc/dhcpcd.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
 - name: Restart dhcpcd service
   become: true
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     daemon_reload: true
     name: dhcpcd

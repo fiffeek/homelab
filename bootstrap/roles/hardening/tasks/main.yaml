@@ -1,15 +1,14 @@
 ---
 - name: Ensure PasswordAuthentication is set to no
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#?PasswordAuthentication\s+'
-    line: 'PasswordAuthentication no'
+    regexp: ^#?PasswordAuthentication\s+
+    line: PasswordAuthentication no
     state: present
-    backup: yes
-
+    backup: true
 - name: Restart SSH service
   become: true
-  service:
+  ansible.builtin.service:
     name: ssh
     state: restarted

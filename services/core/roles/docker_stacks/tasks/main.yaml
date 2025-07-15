@@ -1,29 +1,31 @@
 ---
 - name: Create dirs
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ stacks.dest }}/{{ item.dir }}"
     state: directory
-    mode: '0777'
+    mode: "0777"
   loop: "{{ stacks.order }}"
-- name: Set directories ownership to {{ remote_user }}:{{ remote_user }}
+- name: Set directories ownership to {{ remote_user_id }}
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ stacks.dest }}/{{ item.dir }}"
-    owner: "{{ remote_user }}"
-    group: "{{ remote_user }}"
+    owner: "{{ remote_user_id }}"
+    group: "{{ remote_user_id }}"
   loop: "{{ stacks.order }}"
 - name: Copy stacks to VPS
   tags:
     - deploy
-  copy:
+  ansible.builtin.copy:
     src: "{{ playbook_dir }}/../stacks/{{ ansible_host }}/"
     dest: "{{ stacks.dest }}"
     decrypt: true
+    mode: "0644"
 - name: Start services
   tags:
     - deploy
-  shell:
-    cmd: "docker compose -f docker-compose.yaml up --build -d --force-recreate"
+    - skip_ansible_lint
+  ansible.builtin.command:
+    cmd: docker compose -f docker-compose.yaml up --build -d --force-recreate
     chdir: "{{ stacks.dest }}/{{ item.dir }}"
   loop: "{{ stacks.order }}"

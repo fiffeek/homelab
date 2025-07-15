@@ -6,4 +6,3 @@
     cache_valid_time: 3600
     upgrade: full
   when: ansible_distribution in ["Ubuntu", "Debian"]
-

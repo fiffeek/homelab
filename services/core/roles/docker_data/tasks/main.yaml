@@ -1,19 +1,19 @@
 ---
-- name: Check if {{ storage_mount }} exists
-  stat:
+- name: Check if exists {{ storage_mount }}
+  ansible.builtin.stat:
     path: "{{ storage_mount }}"
   register: mnt_storage
-- name: Ensure {{ home_data_mount }} directory exists
-  file:
+- name: Ensure directory exists {{ home_data_mount }}
+  ansible.builtin.file:
     path: "{{ home_data_mount }}"
     state: directory
     owner: "{{ remote_user }}"
     group: "{{ remote_user }}"
-    mode: '0755'
+    mode: "0755"
   when: not mnt_storage.stat.exists
-- name: Mount {{ storage_mount }} to {{ home_data_mount }}
+- name: Mount {{ home_data_mount }}
   become: true
-  mount:
+  ansible.posix.mount:
     path: "{{ home_data_mount }}"
     src: "{{ storage_mount }}"
     fstype: none
@@ -22,15 +22,15 @@
   when: mnt_storage.stat.exists
 - name: Create toplevel dirs
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ home_data_mount }}/{{ item }}"
     state: directory
-    mode: '0777'
+    mode: "0777"
   loop: "{{ toplevel_directories }}"
 - name: |
-    Set toplevel directories ownership to {{ remote_user }}:{{ remote_user }}
+    Set toplevel directories ownership to {{ remote_user }}
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ home_data_mount }}/{{ item }}"
     owner: "{{ remote_user }}"
     group: "{{ remote_user }}"
