@@ -7,3 +7,10 @@ toplevel_directories:
 stacks:
   dest: /home/{{ ansible_user_id }}/storage/docker-data/core-apps
   order: []
+caddy:
+  certs:
+    pem:
+      location: |
+        /home/fmikina/storage/docker-data/core-apps/caddy/data/data/caddy/pki/authorities/local/root.crt
+certs:
+  location: /usr/local/share/ca-certificates/caddy.crt

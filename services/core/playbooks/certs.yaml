@@ -1,0 +1,5 @@
+---
+- name: Update CA trust stores
+  hosts: "{{ variable_host | default('all') }}"
+  roles:
+    - role: distribute_certs

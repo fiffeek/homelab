@@ -1,0 +1,16 @@
+---
+- name: Get caddy cert
+  become: true
+  ansible.builtin.slurp:
+    src: "{{ caddy.certs.pem.location }}"
+  delegate_to: cherry-pot.home
+  register: cert_data
+- name: Install cert
+  become: true
+  ansible.builtin.copy:
+    dest: "{{ certs.location }}"
+    content: "{{ cert_data['content'] | b64decode }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: update ca trust store
