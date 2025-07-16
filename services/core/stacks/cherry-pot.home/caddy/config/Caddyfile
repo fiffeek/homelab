@@ -8,7 +8,23 @@ pihole.home.filipmikina.com {
         tls internal
 }
 
-https://secrets.home.filipmikina.com {
+secrets.home.filipmikina.com {
         reverse_proxy black-cat:10080
+        tls internal
+}
+
+grafana.home.filipmikina.com {
+        reverse_proxy black-cat:13000
+        tls internal
+}
+
+
+prometheus.home.filipmikina.com {
+        reverse_proxy black-cat:19090
+        tls internal
+}
+
+alerts.home.filipmikina.com {
+        reverse_proxy black-cat:19093
         tls internal
 }
