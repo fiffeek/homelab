@@ -1,0 +1,6 @@
+---
+services:
+  node_exporter:
+    extends:
+      file: ../../common/node-exporter/docker-compose.yaml
+      service: node_exporter

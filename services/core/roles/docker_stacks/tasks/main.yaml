@@ -16,11 +16,52 @@
 - name: Copy stacks to VPS
   tags:
     - deploy
+    - templates
   ansible.builtin.copy:
     src: "{{ playbook_dir }}/../stacks/{{ ansible_host }}/"
     dest: "{{ stacks.dest }}"
     decrypt: true
     mode: "0644"
+- name: Copy common to VPS
+  tags:
+    - deploy
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../stacks/common/"
+    dest: "{{ stacks.common.dest }}"
+    decrypt: true
+    mode: "0644"
+- name: Find all templates
+  ansible.builtin.find:
+    paths: "{{ local_path }}"
+    patterns: "*.j2"
+    recurse: true
+    file_type: file
+  delegate_to: localhost
+  register: found_templates
+  vars:
+    local_path: "{{ playbook_dir }}/../stacks/{{ inventory_hostname }}"
+  tags:
+    - deploy
+    - templates
+- name: Record all hostnames
+  ansible.builtin.set_fact:
+    host_list: "{{ groups['all'] }}"
+  tags:
+    - deploy
+    - templates
+- name: Copy templates to VPS
+  ansible.builtin.template:
+    src: "{{ item.path }}"
+    dest: |
+      "{{ stacks.dest }}/{{ item.path | regex_replace('^' + strip_path, '') }}"
+    mode: "0644"
+  loop: "{{ found_templates.files }}"
+  vars:
+    strip_path: |
+      "{{ (playbook_dir ~ '/../stacks/' ~ inventory_hostname) | realpath }}"
+  tags:
+    - deploy
+    - templates
 - name: Start services
   tags:
     - deploy

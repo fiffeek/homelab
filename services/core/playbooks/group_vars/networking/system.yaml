@@ -1,7 +1,10 @@
 ---
 stacks:
   dest: /home/{{ ansible_user_id }}/storage/docker-data/core-apps
+  common:
+    dest: /home/{{ ansible_user_id }}/storage/docker-data/common
   order:
+    - dir: host-exporters
     - dir: caddy
     - dir: pihole
     - dir: wireguard
