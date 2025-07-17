@@ -6,7 +6,7 @@ set -e
 
 source venv/bin/activate
 
-dirs=("services/core" "bootstrap/")
+dirs=("services/apps" "bootstrap/")
 errors=()
 
 for dir in "${dirs[@]}"; do
