@@ -52,15 +52,13 @@
 - name: Copy templates to VPS
   ansible.builtin.template:
     src: "{{ item.path }}"
-    dest: >
-      {{ stacks.dest }}/{{ item.path | regex_replace('^' + strip_path, '') }}
-
+    # yamllint disable-line rule:line-length
+    dest: "{{ stacks.dest }}/{{ item.path | regex_replace('^' + strip_path, '') }}"
     mode: "0644"
   loop: "{{ found_templates.files }}"
   vars:
-    strip_path: >
-      {{ (playbook_dir ~ '/../stacks/' ~ inventory_hostname) | realpath }}
-
+    # yamllint disable-line rule:line-length
+    strip_path: "{{ (playbook_dir ~ '/../stacks/' ~ inventory_hostname) | realpath }}"
   tags:
     - deploy
     - templates

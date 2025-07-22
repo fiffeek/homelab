@@ -8,3 +8,4 @@ stacks:
     - dir: monitoring
     - dir: infisical
     - dir: search
+    - dir: gitea
