@@ -52,13 +52,15 @@
 - name: Copy templates to VPS
   ansible.builtin.template:
     src: "{{ item.path }}"
-    dest: |
-      "{{ stacks.dest }}/{{ item.path | regex_replace('^' + strip_path, '') }}"
+    dest: >
+      {{ stacks.dest }}/{{ item.path | regex_replace('^' + strip_path, '') }}
+
     mode: "0644"
   loop: "{{ found_templates.files }}"
   vars:
-    strip_path: |
-      "{{ (playbook_dir ~ '/../stacks/' ~ inventory_hostname) | realpath }}"
+    strip_path: >
+      {{ (playbook_dir ~ '/../stacks/' ~ inventory_hostname) | realpath }}
+
   tags:
     - deploy
     - templates

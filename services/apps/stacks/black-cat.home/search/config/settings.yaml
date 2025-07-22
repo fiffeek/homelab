@@ -1,0 +1,135 @@
+---
+use_default_settings: false
+general:
+  debug: false
+  instance_name: Search
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+server:
+  limiter: false
+valkey:
+  url: valkey://redis:6379/0
+search:
+  safe_search: 0
+  formats:
+    - html
+    - json
+    - csv
+    - rss
+  format_by_default: false
+  autocomplete: duckduckgo
+  default_lang: en-US
+  ban_time_on_fail: 5
+  max_ban_time_on_fail: 120
+  languages:
+    - en-US
+ui:
+  default_locale: en
+  query_in_title: true
+  infinite_scroll: true
+  default_theme: simple
+  theme_args:
+    simple_style: black
+  search_on_category_select: true
+  hotkeys: vim
+  url_formatting: pretty
+categories_as_tabs:
+  general: true
+  it: true
+  software wikis: true
+  repos: true
+  social: true
+  books: true
+engines:
+  - name: arch linux wiki
+    engine: archlinux
+    shortcut: al
+    disabled: false
+    categories: [it, software wikis]
+  - name: reddit
+    engine: reddit
+    shortcut: r
+    page_size: 25
+    disabled: false
+    categories: [social]
+  - name: duckduckgo
+    engine: duckduckgo
+    disabled: false
+    shortcut: dd
+    categories: general
+  - name: github
+    engine: github
+    disabled: false
+    shortcut: gh
+    categories: [it, repos]
+  - name: gitlab
+    engine: gitlab
+    base_url: https://gitlab.com
+    disabled: false
+    shortcut: gl
+    categories: [it, repos]
+  - name: gitea.com
+    engine: gitea
+    base_url: https://gitea.com
+    shortcut: gitea
+    disabled: false
+    categories: [it, repos]
+  - name: google
+    engine: google
+    shortcut: g
+    categories: general
+  - name: duckduckgo weather
+    engine: duckduckgo_weather
+    shortcut: ddw
+    disabled: false
+  - name: hackernews
+    engine: hackernews
+    shortcut: hn
+    disabled: false
+    categories: it
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: w
+    disabled: false
+    categories: general
+  - name: docker hub
+    engine: docker_hub
+    shortcut: dh
+    categories: [it]
+  - name: gentoo
+    engine: mediawiki
+    shortcut: ge
+    categories: [it, software wikis]
+    base_url: https://wiki.gentoo.org/
+    api_path: api.php
+    search_type: text
+    timeout: 10
+  - name: arxiv
+    engine: arxiv
+    shortcut: arx
+    timeout: 4.0
+    categories: [books]
+doi_resolvers:
+  oadoi.org: https://oadoi.org/
+  doi.org: https://doi.org/
+  doai.io: https://dissem.in/
+  sci-hub.se: https://sci-hub.se/
+  sci-hub.st: https://sci-hub.st/
+  sci-hub.ru: https://sci-hub.ru/
+default_doi_resolver: oadoi.org
+plugins:
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
