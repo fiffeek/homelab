@@ -38,6 +38,11 @@ alerts.home.filipmikina.com {
         tls internal
 }
 
+git.home.filipmikina.com {
+        reverse_proxy black-cat:13001
+        tls internal
+}
+
 search.home.filipmikina.com {
         tls internal
         encode zstd gzip

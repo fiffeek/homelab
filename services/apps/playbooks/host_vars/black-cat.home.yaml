@@ -7,3 +7,4 @@ stacks:
     - dir: host-exporters
     - dir: monitoring
     - dir: infisical
+    - dir: gitea
