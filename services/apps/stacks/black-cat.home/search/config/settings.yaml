@@ -47,6 +47,13 @@ engines:
     shortcut: al
     disabled: false
     categories: [it, software wikis]
+  - name: nixos wiki
+    engine: mediawiki
+    shortcut: nw
+    base_url: https://wiki.nixos.org/
+    search_type: text
+    disabled: false
+    categories: [it, software wikis]
   - name: reddit
     engine: reddit
     shortcut: r
