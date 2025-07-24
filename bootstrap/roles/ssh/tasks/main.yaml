@@ -1,0 +1,25 @@
+---
+- name: Copy srv ssh key
+  ansible.builtin.copy:
+    src: "{{ item.location }}"
+    dest: "{{ item.location }}"
+    mode: "{{ item.perms }}"
+  vars:
+    files:
+      - location: /home/{{ ansible_user_id }}/.ssh/id_rsa_srv
+        perms: "0600"
+      - location: /home/{{ ansible_user_id }}/.ssh/id_rsa_srv.pub
+        perms: "0644"
+  loop: "{{ files }}"
+- name: Add authorized srv key
+  ansible.posix.authorized_key:
+    user: "{{ ansible_user_id }}"
+    state: present
+    # yamllint disable-line rule:line-length
+    key: "{{ lookup('file', '/home/' + ansible_user_id + '/.ssh/id_rsa_srv.pub') }}"
+- name: Copy ssh config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/config"
+    dest: /home/{{ ansible_user_id }}/.ssh/config
+    mode: "0600"
+  notify: restart ssh
