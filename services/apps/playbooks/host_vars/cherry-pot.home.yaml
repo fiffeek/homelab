@@ -8,3 +8,4 @@ stacks:
     - dir: caddy
     - dir: pihole
     - dir: wireguard
+    - dir: docker-proxy

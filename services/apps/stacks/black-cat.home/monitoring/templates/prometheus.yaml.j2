@@ -1,0 +1,57 @@
+---
+global:
+  scrape_interval: 60s
+  scrape_timeout: 45s
+  evaluation_interval: 15s
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+      scheme: http
+      timeout: 10s
+      api_version: v2
+scrape_configs:
+  # self scrape
+  - job_name: prometheus
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - localhost:9090
+# node exporters are registered as srv
+# records in dnsmasq
+  - job_name: node
+    metrics_path: /metrics
+    scheme: http
+    dns_sd_configs:
+      - names:
+          - _nodeexporter._tcp.home
+        type: SRV
+        refresh_interval: 120s
+# swarm later pls
+# this relies on a read-only docker daemon proxy
+# running on all the servers
+{% for host in host_list %}
+  - job_name: docker__{{ host }}
+    docker_sd_configs:
+      - host: tcp://{{ host }}:2375
+        host_networking_host: {{ host }}
+        refresh_interval: 120s
+        filters:
+          - values:
+              - prometheus_target=true
+            name: label
+    relabel_configs:
+      - source_labels: [__meta_docker_port_public]
+        regex: (.*)
+        replacement: {{ host }}:${1}
+        target_label: __address__
+      - source_labels: [__meta_docker_port_public]
+        regex: (.*)
+        replacement: {{ host }}:${1}
+        target_label: instance
+{% endfor %}

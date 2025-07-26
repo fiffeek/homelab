@@ -1,0 +1,20 @@
+---
+services:
+  docker_socket_proxy:
+    image: tecnativa/docker-socket-proxy:0.3
+    container_name: docker_socket_proxy
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CONTAINERS=1
+      - BUILD=1
+      - INFO=1
+      - IMAGES=1
+      - SERVICES=1
+      - POST=0
+      - NETWORKS=1
+      - NODES=1

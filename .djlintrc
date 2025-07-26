@@ -1,0 +1,4 @@
+[tool.djlint]
+ignore = [
+  "**/*.yaml.j2"
+]

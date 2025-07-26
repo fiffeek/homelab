@@ -1,0 +1,6 @@
+---
+services:
+  docker_socket_proxy:
+    extends:
+      file: ../../common/docker-proxy/docker-compose.yaml
+      service: docker_socket_proxy

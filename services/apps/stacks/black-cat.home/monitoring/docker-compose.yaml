@@ -26,6 +26,7 @@ services:
     env_file: ./config/env/grafana.env.vault
     volumes:
       - ./config/etc-prometheus:/etc/prometheus
+      - ./templates/prometheus.yaml.j2:/etc/prometheus/prometheus.yaml
       - ./data/prometheus:/prometheus
     networks:
       - monitoring
