@@ -12,3 +12,4 @@ stacks:
     - dir: docker-proxy
     - dir: url-shortener
     - dir: rss-reader
+    - dir: cadvisor

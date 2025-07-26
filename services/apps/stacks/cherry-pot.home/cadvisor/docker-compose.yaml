@@ -1,0 +1,6 @@
+---
+services:
+  cadvisor:
+    extends:
+      file: ../../common/cadvisor/docker-compose.yaml
+      service: cadvisor

@@ -9,3 +9,4 @@ stacks:
     - dir: pihole
     - dir: wireguard
     - dir: docker-proxy
+    - dir: cadvisor
