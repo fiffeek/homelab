@@ -43,6 +43,11 @@ git.home.filipmikina.com {
         tls internal
 }
 
+net.home.filipmikina.com {
+        reverse_proxy placeholder.home.filipmikina.com:20211
+        tls internal
+}
+
 search.home.filipmikina.com {
         tls internal
         encode zstd gzip

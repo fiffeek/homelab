@@ -42,6 +42,21 @@ services:
       - pihole
     volumes:
       - /etc/ssl/certs:/etc/ssl/certs:ro
+  netalertx:
+    container_name: netalertx
+    image: ghcr.io/jokob-sk/netalertx:25.7.4
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./data/etc-pihole:/etc/pihole/:ro
+      - ./data/netalertx-db:/app/db
+      - ./data/netalertx-conf:/app/config
+    environment:
+      LOADED_PLUGINS: '["DHCPLSS","ICMP","NSLOOKUP","UI","WEBHOOK"]'
+      PORT: 20211
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/London
 networks:
   pihole:
     external: false
