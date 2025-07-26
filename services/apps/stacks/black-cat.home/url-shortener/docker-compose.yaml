@@ -1,0 +1,14 @@
+---
+services:
+  url-shortener:
+    container_name: url-shortener
+    image: kutt/kutt:v3.2.3
+    volumes:
+      - ./data/db:/var/lib/kutt
+      - ./config/custom:/kutt/custom
+    env_file:
+      - ./config/kutt.env.vault
+    environment:
+      DB_FILENAME: /var/lib/kutt/data.sqlite
+    ports:
+      - 20200:3000

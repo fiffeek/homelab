@@ -20,7 +20,7 @@ repos:
     rev: v1.36.4
     hooks:
       - id: djlint-reformat-jinja
-        exclude: '\.yaml\.j2$'
+        exclude: '(\.yaml\.j2$|conf\.j2$)'
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:

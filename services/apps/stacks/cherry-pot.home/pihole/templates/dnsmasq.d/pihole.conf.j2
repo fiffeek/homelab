@@ -1,3 +1,7 @@
 {% for host in host_list %}
 srv-host=_nodeexporter._tcp.home,{{ host }},9100
 {% endfor %}
+
+{% for from, to in cname_records.items() %}
+cname={{ from }},{{ to }}
+{% endfor %}

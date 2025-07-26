@@ -43,6 +43,19 @@ git.home.filipmikina.com {
         tls internal
 }
 
+http://go.home {
+        reverse_proxy black-cat:20200
+}
+
+http://go {
+        reverse_proxy black-cat:20200
+}
+
+url.home.filipmikina.com {
+        reverse_proxy black-cat:20200
+        tls internal
+}
+
 net.home.filipmikina.com {
         reverse_proxy placeholder.home.filipmikina.com:20211
         tls internal

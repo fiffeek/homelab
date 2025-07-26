@@ -10,3 +10,4 @@ stacks:
     - dir: search
     - dir: gitea
     - dir: docker-proxy
+    - dir: url-shortener
