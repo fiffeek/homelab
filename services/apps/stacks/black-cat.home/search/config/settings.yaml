@@ -95,11 +95,6 @@ engines:
     shortcut: hn
     disabled: false
     categories: it
-  - name: wikipedia
-    engine: wikipedia
-    shortcut: w
-    disabled: false
-    categories: general
   - name: docker hub
     engine: docker_hub
     shortcut: dh
@@ -117,6 +112,36 @@ engines:
     shortcut: arx
     timeout: 4.0
     categories: [books]
+  - name: brave
+    engine: brave
+    shortcut: br
+    time_range_support: true
+    paging: true
+    categories: [general, web]
+    brave_category: search
+    disabled: false
+  - name: dictzone
+    engine: dictzone
+    shortcut: dc
+  - name: lingva
+    engine: lingva
+    shortcut: lv
+  - name: currency
+    engine: currency_convert
+    categories: general
+    shortcut: cc
+  - name: pypi
+    shortcut: pypi
+    engine: pypi
+  - name: superuser
+    engine: stackexchange
+    shortcut: su
+    api_site: superuser
+    categories: [it]
+  - name: wttr.in
+    engine: wttr
+    shortcut: wttr
+    timeout: 9.0
 doi_resolvers:
   oadoi.org: https://oadoi.org/
   doi.org: https://doi.org/
