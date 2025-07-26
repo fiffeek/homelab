@@ -7,8 +7,4 @@
     line: PasswordAuthentication no
     state: present
     backup: true
-- name: Restart SSH service
-  become: true
-  ansible.builtin.service:
-    name: ssh
-    state: restarted
+  notify: restart sshd

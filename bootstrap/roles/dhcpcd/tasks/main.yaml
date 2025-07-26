@@ -7,9 +7,4 @@
     group: root
     mode: "0644"
   become: true
-- name: Restart dhcpcd service
-  become: true
-  ansible.builtin.systemd:
-    state: restarted
-    daemon_reload: true
-    name: dhcpcd
+  notify: restart dhcpcd
