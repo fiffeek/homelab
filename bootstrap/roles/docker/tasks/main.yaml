@@ -48,3 +48,10 @@
     name: "{{ remote_username }}"
     groups: docker
     append: true
+- name: Copy dockerd config
+  become: true
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/daemon.json"
+    dest: /etc/docker/daemon.json
+    mode: "0600"
+  notify: restart dockerd

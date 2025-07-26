@@ -1,0 +1,6 @@
+# Ignore artifacts:
+build
+coverage
+
+# run only on json files
+!*.json

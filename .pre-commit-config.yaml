@@ -35,6 +35,10 @@ repos:
         name: Ensure secrets are encrypted
         entry: ./hooks/encrypt.sh
         language: system
+      - id: prettier
+        name: Run prettier
+        language: system
+        entry: ./hooks/prettier.sh
       - id: ansible-lint
         name: Lint ansible files
         entry: ./hooks/ansible_lint.sh
