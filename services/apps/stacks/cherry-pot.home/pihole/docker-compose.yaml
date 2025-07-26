@@ -8,8 +8,8 @@ services:
       TZ: Europe/London
       FTLCONF_webserver_api_password: ""
       FTLCONF_webserver_port: 8080,8043s
-      # Fallback on router dns for local .home name resolutions
-      FTLCONF_dns_upstreams: 8.8.8.8;8.8.4.4;192.168.1.1
+      # quad9;cloudflare;dns0;local
+      FTLCONF_dns_upstreams: 9.9.9.9;1.1.1.1;193.110.81.0;192.168.1.1
       FTLCONF_misc_etc_dnsmasq_d: true
     volumes:
       - ./data/etc-pihole:/etc/pihole
