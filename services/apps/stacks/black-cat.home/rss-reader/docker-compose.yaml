@@ -1,0 +1,60 @@
+---
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - ./config/psql.env.vault
+      - ./config/ttrss.env
+      - ./config/admin.env.vault
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - rss
+  app:
+    image: cthulhoo/ttrss-fpm-pgsql-static:dea3f2dc
+    restart: unless-stopped
+    env_file:
+      - ./config/psql.env.vault
+      - ./config/ttrss.env
+      - ./config/admin.env.vault
+    volumes:
+      - ./data/app:/var/www/html
+      - ./data/config.d:/opt/tt-rss/config.d:ro
+    depends_on:
+      - db
+    networks:
+      - rss
+  updater:
+    image: cthulhoo/ttrss-fpm-pgsql-static:dea3f2dc
+    restart: unless-stopped
+    env_file:
+      - ./config/psql.env.vault
+      - ./config/ttrss.env
+      - ./config/admin.env.vault
+    volumes:
+      - ./data/app:/var/www/html
+      - ./data/config.d:/opt/tt-rss/config.d:ro
+    depends_on:
+      - app
+    command: /opt/tt-rss/updater.sh
+    networks:
+      - rss
+  web-nginx:
+    image: cthulhoo/ttrss-web-nginx:dea3f2dc
+    restart: unless-stopped
+    env_file:
+      - ./config/psql.env.vault
+      - ./config/ttrss.env
+      - ./config/admin.env.vault
+    ports:
+      - 8280:80
+    volumes:
+      - ./data/app:/var/www/html:ro
+    depends_on:
+      - app
+    networks:
+      - rss
+networks:
+  rss:
+    external: false

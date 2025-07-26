@@ -11,3 +11,4 @@ stacks:
     - dir: gitea
     - dir: docker-proxy
     - dir: url-shortener
+    - dir: rss-reader

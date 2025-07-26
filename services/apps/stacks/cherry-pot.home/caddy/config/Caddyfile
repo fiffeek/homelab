@@ -17,6 +17,11 @@ pihole.home.filipmikina.com {
         tls internal
 }
 
+rss.home.filipmikina.com {
+        reverse_proxy black-cat:8280
+        tls internal
+}
+
 secrets.home.filipmikina.com {
         reverse_proxy black-cat:10080
         tls internal
