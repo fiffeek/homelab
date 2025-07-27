@@ -8,8 +8,8 @@ services:
       TZ: Europe/London
       FTLCONF_webserver_api_password: ""
       FTLCONF_webserver_port: 8080,8043s
-      # quad9;cloudflare;dns0;local
-      FTLCONF_dns_upstreams: 9.9.9.9;1.1.1.1;193.110.81.0;192.168.1.1
+      # quad9;cloudflare;dns0
+      FTLCONF_dns_upstreams: 9.9.9.9;1.1.1.1;193.110.81.0
       FTLCONF_misc_etc_dnsmasq_d: true
     volumes:
       - ./data/etc-pihole:/etc/pihole
