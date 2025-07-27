@@ -12,3 +12,4 @@ services:
       DB_FILENAME: /var/lib/kutt/data.sqlite
     ports:
       - 20200:3000
+    restart: unless-stopped
