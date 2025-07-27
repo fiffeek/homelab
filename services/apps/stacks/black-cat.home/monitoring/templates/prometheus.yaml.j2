@@ -11,6 +11,8 @@ alerting:
       scheme: http
       timeout: 10s
       api_version: v2
+rule_files:
+  - "/etc/prometheus/alerts/*.yaml"
 scrape_configs:
   # self scrape
   - job_name: prometheus
@@ -22,6 +24,15 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9090
+  - job_name: alertmanager
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - alertmanager:9093
 # node exporters are registered as srv
 # records in dnsmasq
   - job_name: node

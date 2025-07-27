@@ -5,6 +5,4 @@ FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
-echo "$FILES" | xargs git add
-
 exit 0
