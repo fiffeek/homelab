@@ -11,7 +11,13 @@ services:
       - 18080:8080
     volumes:
       - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+      - /sys/fs/cgroup:/cgroup:ro
+    command:
+      - -housekeeping_interval=30s
+      - -docker_only=true
+      - -store_container_labels=false
