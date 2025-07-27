@@ -1,0 +1,18 @@
+---
+dhcp:
+  cname_records:
+    git.home: black-cat.home
+    go.home: cherry-pot.home
+  dhcp_host_records:
+    - hwaddr: b8:27:eb:bc:f3:67
+      ip: 192.168.1.24
+      host_name: cherry-pot
+      lease_time: infinite
+    - hwaddr: b8:27:eb:e9:a6:32
+      ip: 192.168.1.22
+      host_name: cherry-pot-wifi
+      lease_time: infinite
+    - hwaddr: 98:fa:9b:28:d6:0b
+      host_name: black-cat
+    - hwaddr: 40:74:e0:18:31:ac
+      host_name: black-cat-wifi

@@ -2,6 +2,11 @@
 srv-host=_nodeexporter._tcp.home,{{ host }},9100
 {% endfor %}
 
-{% for from, to in cname_records.items() %}
+{% for from, to in dhcp.cname_records.items() %}
 cname={{ from }},{{ to }}
+{% endfor %}
+
+{% for entry in dhcp.dhcp_host_records %}
+dhcp-host={{ entry.hwaddr }}{% if 'ip' in entry %},{{ entry.ip }}{% endif %},{{ entry.host_name }}{% if 'lease_time' in entry %},{{ entry.lease_time }}{% endif %}
+
 {% endfor %}
