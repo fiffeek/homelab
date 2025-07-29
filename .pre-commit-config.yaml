@@ -27,6 +27,11 @@ repos:
       - id: shellcheck
   - repo: local
     hooks:
+      - id: mbake-format
+        name: mbake formatter
+        entry: mbake format --config .bake.toml
+        language: system
+        types: [makefile]
       - id: check-pip-freeze
         name: Generate pip requirements
         entry: ./hooks/pip_freeze.sh
