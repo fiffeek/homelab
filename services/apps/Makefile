@@ -11,8 +11,14 @@ TAGS := --tags deploy
 ANSIBLE_BASE := ansible-playbook
 EXTRA_HOST := --extra-vars "variable_host=$(hosts)"
 EXTRA_SERVICE := --extra-vars "service=$(service)"
+ANSIBLE_GALAXY_BASE := ansible-galaxy
+ANSIBLE_GALAXY_REQUIREMENTS := requirements.yml
 
-.PHONY: service-deploy batch-deploy
+.PHONY: service-deploy batch-deploy install
+
+install: $(ANSIBLE_GALAXY_REQUIREMENTS)
+	$(ANSIBLE_GALAXY_BASE) collection install \
+		-r $(ANSIBLE_GALAXY_REQUIREMENTS)
 
 service-deploy:
 	$(ANSIBLE_BASE) playbooks/deploy-single-service.yaml \
