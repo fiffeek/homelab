@@ -17,7 +17,9 @@ $(INSTALL_DIR)/.dir.stamp:
 
 $(INSTALL_DIR)/.venv.stamp: $(REQUIREMENTS_FILE) $(INSTALL_DIR)/.dir.stamp
 	test -d "$(VENV)" || $(PYTHON_BIN) -m venv "$(VENV)"
-	. "$(VENV)/bin/activate"; pip install -r "$(REQUIREMENTS_FILE)"
+	. "$(VENV)/bin/activate"; \
+		pip install --upgrade pip; \
+		pip install -r "$(REQUIREMENTS_FILE)"
 	touch $@
 
 $(INSTALL_DIR)/.npm.stamp: $(NPM_PACKAGE_FILE) $(INSTALL_DIR)/.dir.stamp

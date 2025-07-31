@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 CHECK_FLAGS := --check --diff
 ADDITIONAL_FLAGS ?=
 
@@ -8,7 +9,9 @@ endif
 VAULT_PASS_FILE := vault_pass.txt
 VAULT_PASS := --vault-pass-file $(VAULT_PASS_FILE)
 TAGS := --tags deploy
-ANSIBLE_BASE := ansible-playbook
+ANSIBLE_ENV_FILE := ansible.env
+INFISICAL_ENV_FILE := infisical.env
+ANSIBLE_BASE := . $(INFISICAL_ENV_FILE); . $(ANSIBLE_ENV_FILE); ansible-playbook
 EXTRA_HOST := --extra-vars "variable_host=$(hosts)"
 EXTRA_SERVICE := --extra-vars "service=$(service)"
 ANSIBLE_GALAXY_BASE := ansible-galaxy

@@ -1,3 +1,5 @@
 #!/bin/bash
 
-pip freeze >requirements.txt
+pip freeze | sed 's/_/-/g' |
+  awk -F '==' '{ printf "%s==%s\n", tolower($1), $2 }' \
+    >requirements.txt
