@@ -15,12 +15,12 @@ $(INSTALL_DIR)/.dir.stamp:
 	mkdir -p $(INSTALL_DIR)
 	touch $@
 
-$(INSTALL_DIR)/.venv.stamp: $(REQUIREMENTS_FILE) | $(INSTALL_DIR)/.dir.stamp
+$(INSTALL_DIR)/.venv.stamp: $(REQUIREMENTS_FILE) $(INSTALL_DIR)/.dir.stamp
 	test -d "$(VENV)" || $(PYTHON_BIN) -m venv "$(VENV)"
-	. "$(VENV)/bin/activate"; pip install -Ur "$(REQUIREMENTS_FILE)"
+	. "$(VENV)/bin/activate"; pip install -r "$(REQUIREMENTS_FILE)"
 	touch $@
 
-$(INSTALL_DIR)/.npm.stamp: $(NPM_PACKAGE_FILE) | $(INSTALL_DIR)/.dir.stamp
+$(INSTALL_DIR)/.npm.stamp: $(NPM_PACKAGE_FILE) $(INSTALL_DIR)/.dir.stamp
 	$(NPM_BIN) install
 	touch $@
 
@@ -37,6 +37,9 @@ service-deploy: $(INSTALL_DIR)/.venv.stamp
 
 provisioning: $(INSTALL_DIR)/.venv.stamp
 	. "$(VENV)/bin/activate"; cd "$(BOOTSTRAP_ROOT)" && $(MAKE) $@
+
+fetch-caddy-ssl-certs: $(INSTALL_DIR)/.venv.stamp
+	. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
 
 clean:
 	r  -rf "$(VENV)" "$(INSTALL_DIR)"

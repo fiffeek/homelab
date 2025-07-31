@@ -29,3 +29,10 @@ batch-deploy:
 	$(ANSIBLE_BASE) playbooks/deploy.yaml \
 		$(TAGS) $(VAULT_PASS) \
 		$(EXTRA_HOST) $(ADDITIONAL_FLAGS)
+
+fetch-caddy-ssl-certs:
+	$(ANSIBLE_BASE) playbooks/certs.yaml \
+		$(VAULT_PASS) \
+		 $(EXTRA_HOST) $(ADDITIONAL_FLAGS) \
+		 -i ../../ansible-common/localhost.ini \
+		 --ask-become-pass
