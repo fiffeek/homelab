@@ -1,0 +1,34 @@
+---
+- name: Use entire disk
+  become: true
+  community.general.parted:
+    device: "{{ disk.device }}"
+    number: "{{ disk.part_number | default(1) }}"
+    name: "{{ disk.name }}"
+    state: present
+    label: "{{ disk.label | default('gpt') }}"
+    unit: "{{ disk.unit | default('MiB') }}"
+    part_start: "{{ disk.start | default('0%') }}"
+    part_end: "{{ dist.end | default('100%') }}"
+- name: Define file system for the disk
+  become: true
+  community.general.filesystem:
+    fstype: "{{ disk.fstype | default('ext4') }}"
+    dev: "{{ disk.device }}{{ disk.part_number | default(1) }}"
+- name: Create the mount directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ disk.mount_path }}"
+    state: directory
+    mode: "0755"
+- name: Prepare btrfs
+  ansible.builtin.include_tasks: btrfs.yaml
+  when: disk.fstype == "btrfs"
+- name: Mount the disk
+  become: true
+  ansible.posix.mount:
+    path: "{{ disk.mount_path }}"
+    src: "{{ disk.device }}{{ disk.part_number | default(1) }}"
+    fstype: "{{ disk.fstype | default('ext4') }}"
+    opts: "{{ disk.mount_opts | default('defaults') }}"
+    state: mounted

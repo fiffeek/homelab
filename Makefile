@@ -4,6 +4,7 @@ VENV := venv
 REQUIREMENTS_FILE := requirements.txt
 NPM_PACKAGE_FILE := package.json
 SERVICES_ROOT := services/apps/
+BOOTSTRAP_ROOT := bootstrap/
 INSTALL_DIR := install
 
 .PHONY: install clean service-deploy
@@ -34,5 +35,8 @@ $(INSTALL_DIR)/.services.stamp: $(INSTALL_DIR)/.venv.stamp
 service-deploy: $(INSTALL_DIR)/.venv.stamp
 	. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
 
+provisioning: $(INSTALL_DIR)/.venv.stamp
+	. "$(VENV)/bin/activate"; cd "$(BOOTSTRAP_ROOT)" && $(MAKE) $@
+
 clean:
-	rm -rf "$(VENV)" "$(INSTALL_DIR)"
+	r  -rf "$(VENV)" "$(INSTALL_DIR)"

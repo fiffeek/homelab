@@ -1,0 +1,8 @@
+---
+extra_disks:
+  - device: /dev/sda
+    name: backups
+    mount_path: /mnt/backups
+    fstype: btrfs
+    subvolume: data
+    mount_opts: subvol=@data,compress=zstd

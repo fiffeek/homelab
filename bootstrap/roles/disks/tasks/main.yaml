@@ -1,0 +1,6 @@
+---
+- name: Prepare and mount disks
+  ansible.builtin.include_tasks: disk.yaml
+  loop: "{{ extra_disks | default([]) }}"
+  loop_control:
+    loop_var: disk

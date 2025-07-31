@@ -1,0 +1,27 @@
+---
+- name: Check if Btrfs subvolume already exists
+  become: true
+  ansible.builtin.stat:
+    path: "{{ disk.mount_path }}/@{{ disk.subvolume }}"
+  register: btrfs_subvol
+- name: Mount Btrfs volume temporarily (only if subvol doesn't exist)
+  become: true
+  ansible.posix.mount:
+    path: "{{ disk.mount_path }}"
+    src: "{{ disk.device }}{{ disk.part_number | default(1) }}"
+    fstype: btrfs
+    state: mounted
+  when: not btrfs_subvol.stat.exists
+- name: Create Btrfs subvolume
+  become: true
+  ansible.builtin.command: >
+    btrfs subvolume create {{ disk.mount_path }}/@{{ disk.subvolume }}
+
+  when: not btrfs_subvol.stat.exists
+  changed_when: true
+- name: Unmount temporary Btrfs mount
+  become: true
+  ansible.posix.mount:
+    path: "{{ disk.mount_path }}"
+    state: unmounted
+  when: not btrfs_subvol.stat.exists
