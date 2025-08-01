@@ -12,6 +12,11 @@ vpn.filipmikina.com {
         tls internal
 }
 
+vpn-backup.home.filipmikina.com {
+        reverse_proxy black-cat:50821
+        tls internal
+}
+
 pihole.home.filipmikina.com {
         reverse_proxy pihole.vpn.filipmikina.com:8080
         tls internal
