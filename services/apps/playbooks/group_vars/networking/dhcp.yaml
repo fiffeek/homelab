@@ -14,7 +14,9 @@ dhcp:
       lease_time: infinite
     - hwaddr: 98:fa:9b:28:d6:0b
       host_name: black-cat
-      lease_time: 168h
+      lease_time: infinite
+      ip: 192.168.1.34
     - hwaddr: 40:74:e0:18:31:ac
       host_name: black-cat-wifi
-      lease_time: 24h
+      lease_time: infinite
+      ip: 192.168.1.32
