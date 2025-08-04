@@ -20,3 +20,7 @@ dhcp:
       host_name: black-cat-wifi
       lease_time: infinite
       ip: 192.168.1.32
+    - hwaddr: 3c:c5:dd:43:a0:5b
+      host_name: tv
+      lease_time: infinite
+      ip: 192.168.1.69
