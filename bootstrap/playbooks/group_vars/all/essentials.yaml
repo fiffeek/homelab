@@ -9,3 +9,4 @@ packages:
   - tmux
   - vim
   - dhcpcd
+  - rsync
