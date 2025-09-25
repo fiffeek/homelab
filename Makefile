@@ -37,7 +37,8 @@ $(INSTALL_DIR)/.npm.stamp: $(NPM_PACKAGE_FILE) $(INSTALL_DIR)/.dir.stamp
 	@touch $@
 
 $(INSTALL_DIR)/.precommit.stamp: $(PRECOMMIT_FILE) $(INSTALL_DIR)/.venv.stamp
-	@. "$(VENV)/bin/activate"; pre-commit install
+	@. "$(VENV)/bin/activate"; pre-commit install && \
+		pre-commit install --hook-type commit-msg
 	@touch $@
 
 $(INSTALL_DIR)/.services.stamp: $(INSTALL_DIR)/.venv.stamp
