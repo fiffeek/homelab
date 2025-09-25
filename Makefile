@@ -7,41 +7,51 @@ SERVICES_ROOT := services/apps/
 BOOTSTRAP_ROOT := bootstrap/
 INSTALL_DIR := install
 
-.PHONY: install clean service-deploy
+.PHONY: clean service-deploy provisioning fetch-caddy-ssl-certs
 
-dev: $(INSTALL_DIR)/.dir.stamp $(INSTALL_DIR)/.venv.stamp $(INSTALL_DIR)/.npm.stamp $(INSTALL_DIR)/.precommit.stamp $(INSTALL_DIR)/.services.stamp
+dev: \
+	$(INSTALL_DIR)/.dir.stamp \
+	$(INSTALL_DIR)/.asdf.stamp \
+	$(INSTALL_DIR)/.venv.stamp \
+	$(INSTALL_DIR)/.npm.stamp \
+	$(INSTALL_DIR)/.precommit.stamp \
+	$(INSTALL_DIR)/.services.stamp
 
 $(INSTALL_DIR)/.dir.stamp:
-	mkdir -p $(INSTALL_DIR)
-	touch $@
+	@mkdir -p $(INSTALL_DIR)
+	@touch $@
+
+$(INSTALL_DIR)/.asdf.stamp: $(INSTALL_DIR)/.dir.stamp
+	@asdf install
+	@touch $@
 
 $(INSTALL_DIR)/.venv.stamp: $(REQUIREMENTS_FILE) $(INSTALL_DIR)/.dir.stamp
-	test -d "$(VENV)" || $(PYTHON_BIN) -m venv "$(VENV)"
-	. "$(VENV)/bin/activate"; \
+	@test -d "$(VENV)" || $(PYTHON_BIN) -m venv "$(VENV)"
+	@. "$(VENV)/bin/activate"; \
 		pip install --upgrade pip; \
 		pip install -r "$(REQUIREMENTS_FILE)"
-	touch $@
+	@touch $@
 
 $(INSTALL_DIR)/.npm.stamp: $(NPM_PACKAGE_FILE) $(INSTALL_DIR)/.dir.stamp
-	$(NPM_BIN) install
-	touch $@
+	@$(NPM_BIN) install
+	@touch $@
 
 $(INSTALL_DIR)/.precommit.stamp: $(PRECOMMIT_FILE) $(INSTALL_DIR)/.venv.stamp
-	. "$(VENV)/bin/activate"; pre-commit install
-	touch $@
+	@. "$(VENV)/bin/activate"; pre-commit install
+	@touch $@
 
 $(INSTALL_DIR)/.services.stamp: $(INSTALL_DIR)/.venv.stamp
-	. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) install
-	touch $@
+	@. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) install
+	@touch $@
 
 service-deploy: $(INSTALL_DIR)/.venv.stamp
-	. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
+	@. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
 
 provisioning: $(INSTALL_DIR)/.venv.stamp
-	. "$(VENV)/bin/activate"; cd "$(BOOTSTRAP_ROOT)" && $(MAKE) $@
+	@. "$(VENV)/bin/activate"; cd "$(BOOTSTRAP_ROOT)" && $(MAKE) $@
 
 fetch-caddy-ssl-certs: $(INSTALL_DIR)/.venv.stamp
-	. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
+	@. "$(VENV)/bin/activate"; cd "$(SERVICES_ROOT)" && $(MAKE) $@
 
 clean:
-	r  -rf "$(VENV)" "$(INSTALL_DIR)"
+	@rm  -rf "$(VENV)" "$(INSTALL_DIR)"

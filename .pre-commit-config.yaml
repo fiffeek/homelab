@@ -25,6 +25,10 @@ repos:
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.35.6
+    hooks:
+      - id: typos
   - repo: local
     hooks:
       - id: mbake-format
@@ -47,4 +51,9 @@ repos:
       - id: ansible-lint
         name: Lint ansible files
         entry: ./hooks/ansible_lint.sh
+        language: system
+      - id: commintlint
+        name: lint commit message
+        stages: [commit-msg]
+        entry: npx commitlint --edit
         language: system
