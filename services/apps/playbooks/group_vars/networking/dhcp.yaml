@@ -3,6 +3,7 @@ dhcp:
   cname_records:
     git.home: black-cat.home
     go.home: cherry-pot.home
+    llm.home: black-cat.home
   dhcp_host_records:
     - hwaddr: b8:27:eb:bc:f3:67
       ip: 192.168.1.24

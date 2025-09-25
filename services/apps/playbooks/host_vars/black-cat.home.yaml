@@ -13,3 +13,4 @@ stacks:
     - dir: url-shortener
     - dir: rss-reader
     - dir: cadvisor
+    - dir: llm

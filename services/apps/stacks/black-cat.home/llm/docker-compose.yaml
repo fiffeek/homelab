@@ -1,0 +1,19 @@
+---
+services:
+  ollama:
+    container_name: ollama
+    image: ollama/ollama:0.12.2
+    restart: unless-stopped
+    networks:
+      - ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ./data/ollama:/root/.ollama
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "1"
+networks:
+  ollama:
