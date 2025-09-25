@@ -9,7 +9,7 @@ INSTALL_DIR := install
 
 .PHONY: install clean service-deploy
 
-install: $(INSTALL_DIR)/.dir.stamp $(INSTALL_DIR)/.venv.stamp $(INSTALL_DIR)/.npm.stamp $(INSTALL_DIR)/.precommit.stamp $(INSTALL_DIR)/.services.stamp
+dev: $(INSTALL_DIR)/.dir.stamp $(INSTALL_DIR)/.venv.stamp $(INSTALL_DIR)/.npm.stamp $(INSTALL_DIR)/.precommit.stamp $(INSTALL_DIR)/.services.stamp
 
 $(INSTALL_DIR)/.dir.stamp:
 	mkdir -p $(INSTALL_DIR)
